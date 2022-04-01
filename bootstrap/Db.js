@@ -1,25 +1,24 @@
-//const mysql = require('mysql');
-//const dotenv = require('dotenv').config()
-const { Dbpg } = require ('Dbpg')
-const { DB_HOST, 
-        DB_USER, 
-        DB_PORT, 
-        DB_NAME,    
-        DB_PASSWORD } = process.env
+const { Client } = require('pg')
+const {   
+    dbUser,
+    dbHost,
+    dbName,
+    dbPassword,
+    dbPort  } = require('../config/app.js')
 
 module.exports = class Db {
     constructor() {
-    /*data = mysql.createConnection({*/
-    this.pg = new Dbpg ({
-        host: DB_HOST,
-        user: DB_USER,
-        port: DB_PORT,
-        password: DB_PASSWORD,
-        database: DB_NAME
+        
+        console.log('DB_NAME:', dbName)
+
+        this.client = new Client ({
+            host: dbHost,
+            user: dbUser,
+            port: dbPort,
+            password: dbPassword,
+            database: dbName,
     });
-    //connect() {
-        //this.pg.connect()
-        this.pg.connect(function (err) {
+        this.client.connect(function (err) {
             if (err) {
                 console.error('Error connecting: ' + err.stack);
                 return;

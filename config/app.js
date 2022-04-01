@@ -1,4 +1,5 @@
 const dotenv = require('dotenv').config()
+
 const { DB_HOST, 
         DB_USER, 
         DB_NAME, 
@@ -11,10 +12,12 @@ const { DB_HOST,
         const dbPassword = DB_PASSWORD;
         const dbPort = DB_PORT;
 
-        module.exports = {
+        const APP = {
             dbUser,
             dbHost,
             dbName,
             dbPassword,
             dbPort
-}
+        }
+
+module.exports = APP

@@ -1,7 +1,7 @@
 const url = require("url")
-const Db = require("../boostrap/Db.js")
+const Db = require("../bootstrap/Db.js")
+const Router = require('../bootstrap/Router.js')
 const UserController = require('../app/Controllers/UserController.js')
-const Router = require('../boostrap/Router.js')
 
 module.exports = class routes {
     constructor(req, res) {
@@ -43,6 +43,7 @@ module.exports = class routes {
 
         }
         else if (this.req.url.match(/\/users\/([0-9]+)/)) {
+
             if (this.req.method === 'GET') {
                 const id = this.req.url.split("/")[2];
                 const userController = new UserController(this.req, this.res);
@@ -50,6 +51,7 @@ module.exports = class routes {
                 this.res.writeHead(200, { "Content-type": "text/plain" })
             }
             else if (this.req.method === 'PUT') {
+
                 const userController = new UserController(this.req, this.res);
                 const id = this.req.url.split("/")[2];
                 const body = router.getPostData(this.req)
@@ -81,19 +83,17 @@ module.exports = class routes {
         else if (this.req.url == "/") {
             if (this.req.method === 'GET') {
                 this.res.writeHead(200, { "Content-type": "text/plain" })
-                this.res.write('index');
+                this.res.write('Hello world');
                 this.res.end()
             } else {
                 this.res.writeHead(405, { "Content-type": "text/plain" })
                 return this.res.end(`error ${this.res.statusCode} Method not allowed`)
             }
-
         }
         else {
             this.res.writeHead(404, { "Content-type": "text/plain" })
-            return this.res.end(`error ${this.res.statusCode} Page Not Found`)
+            return this.res.end(`error ${this.res.statusCode} File not found`)
         }
 
     }
 }
-

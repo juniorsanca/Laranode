@@ -1,6 +1,4 @@
-//users/repository.id ça recupere l'user 
-
-const Db = require("../../boostrap/Db.js")
+const Db = require("../../bootstrap/Db.js")
 
 module.exports = class UserRepository {
     
@@ -23,6 +21,17 @@ module.exports = class UserRepository {
         return user
     }
     
+    async update(id, name, email, password) {
+        const text = `UPDATE users SET name = $1, email = $2, password = $3 WHERE id = ${id}`
+        const values = [name, email, password]
+        try {
+            const res = await this.db.client.query(text, values)
+            return res
+        } catch (err) {
+            console.log(err.stack)
+        }
+    }
+
     async create(name, email, password) {
         const text = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING *'
         const values = [name, email, password]
@@ -34,17 +43,6 @@ module.exports = class UserRepository {
             console.log(err.stack)
         }
         this.res.end()
-    }
-    
-    async update(id, name, email, password) {
-        const text = `UPDATE users SET name = $1, email = $2, password = $3 WHERE id = ${id}`
-        const values = [name, email, password]
-        try {
-            const res = await this.db.client.query(text, values)
-            return res
-        } catch (err) {
-            console.log(err.stack)
-        }
     }
     
     async delete(id) {

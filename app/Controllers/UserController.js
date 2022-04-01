@@ -1,4 +1,4 @@
-const Db = require("../../boostrap/Db.js")
+const Db = require("../../bootstrap/Db.js")
 const UserRepository = require("../Repository/UserRepository.js")
 
 module.exports = class UserController {
@@ -11,7 +11,6 @@ module.exports = class UserController {
     async getAll() {
         const users = new UserRepository(this.req, this.res);
         const results = await users.all();
-        return results;
     }
     
     async get(id) {
@@ -27,7 +26,6 @@ module.exports = class UserController {
         else {
             this.res.write(JSON.stringify(results));
             this.res.end();
-            return results;
         }
 
     }
@@ -35,7 +33,6 @@ module.exports = class UserController {
     async post(name, email, password) {
         const users = new UserRepository(this.req, this.res);
         const results = await users.create(name, email, password);
-        return results;
     }
 
     async update(id, name, email, password) {
@@ -52,7 +49,6 @@ module.exports = class UserController {
             this.res.writeHead(200, { "Content-type": "text/plain" })
             this.res.write('user updated');
             this.res.end();
-            return results;
         }
     }
 
@@ -70,7 +66,6 @@ module.exports = class UserController {
             this.res.writeHead(200, { "Content-type": "text/plain" })
             this.res.write('user deleted');
             this.res.end();
-            return results;
         }
     }
 }
