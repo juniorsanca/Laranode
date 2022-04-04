@@ -1,7 +1,7 @@
 const Db = require("../../bootstrap/Db.js")
 
 const db = new Db();
-const results = db.client.query("SELECT * FROM users");
+const results = db.client.query("SELECT id, name, email, password, created_at, updated_at FROM users");
 const users = results.rows;
 
 function findAll() {

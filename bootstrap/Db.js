@@ -1,23 +1,19 @@
 const { Client } = require('pg')
-const {   
-    dbUser,
-    dbHost,
-    dbName,
-    dbPassword,
-    dbPort  } = require('../config/app.js')
+const APP = require('../config/app.js')
 
 module.exports = class Db {
     constructor() {
         
-        console.log('DB_NAME:', dbName)
+        console.log('DB_NAME:', APP.dbName)
 
         this.client = new Client ({
-            host: dbHost,
-            user: dbUser,
-            port: dbPort,
-            password: dbPassword,
-            database: dbName,
+            host: APP.dbHost,
+            user: APP.dbUser,
+            port: APP.dbPort,
+            password: APP.dbPassword,
+            database: APP.dbName,
     });
+
         this.client.connect(function (err) {
             if (err) {
                 console.error('Error connecting: ' + err.stack);
